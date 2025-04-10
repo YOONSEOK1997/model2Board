@@ -51,27 +51,27 @@ public class CashDAO {
 
 	        rs = stmt.executeQuery();
 	        while (rs.next()) {
-	            CashDTO cashDto = new CashDTO();
-	            cashDto.setCashNo(rs.getInt("cash_no"));
-	            cashDto.setCategoryNo(rs.getInt("category_no"));
-	            cashDto.setAmount(rs.getInt("amount"));
-	            cashDto.setMemo(rs.getString("memo"));
-	            cashDto.setCashDate(rs.getString("cash_date"));
-	            cashDto.setColor(rs.getString("color"));
-	            cashDto.setCreatedDate(rs.getTimestamp("cash_createdate").toLocalDateTime());
+	            CashDTO cash = new CashDTO();
+	            cash.setCashNo(rs.getInt("cash_no"));
+	            cash.setCategoryNo(rs.getInt("category_no"));
+	            cash.setAmount(rs.getInt("amount"));
+	            cash.setMemo(rs.getString("memo"));
+	            cash.setCashDate(rs.getString("cash_date"));
+	            cash.setColor(rs.getString("color"));
+	            cash.setCreatedDate(rs.getTimestamp("cash_createdate").toLocalDateTime());
 
 	            CategoryDTO category = new CategoryDTO();
 	            category.setCategoryNo(rs.getInt("category_no"));
 	            category.setKind(rs.getString("kind"));
 	            category.setTitle(rs.getString("title"));
 
-	            cashDto.setCategoryDTO(category);
+	            cash.setCategoryDTO(category);
 
 	            String dateKey = rs.getString("cash_date");
 	            if (!map.containsKey(dateKey)) {
 	                map.put(dateKey, new ArrayList<CashDTO>());
 	            }
-	            map.get(dateKey).add(cashDto);
+	            map.get(dateKey).add(cash);
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -125,22 +125,22 @@ public class CashDAO {
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
-	            CashDTO dto = new CashDTO();
-	            dto.setCashNo(rs.getInt("cash_no"));
-	            dto.setCategoryNo(rs.getInt("category_no"));
-	            dto.setCashDate(rs.getString("cash_date"));
-	            dto.setAmount(rs.getInt("amount"));
-	            dto.setMemo(rs.getString("memo"));
-	            dto.setColor(rs.getString("color"));
-	            dto.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
-	            dto.setUpdatedDate(rs.getTimestamp("updatedate").toLocalDateTime());
+	            CashDTO cash = new CashDTO();
+	            cash.setCashNo(rs.getInt("cash_no"));
+	            cash.setCategoryNo(rs.getInt("category_no"));
+	            cash.setCashDate(rs.getString("cash_date"));
+	            cash.setAmount(rs.getInt("amount"));
+	            cash.setMemo(rs.getString("memo"));
+	            cash.setColor(rs.getString("color"));
+	            cash.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
+	            cash.setUpdatedDate(rs.getTimestamp("updatedate").toLocalDateTime());
 
 	            CategoryDTO category = new CategoryDTO();
 	            category.setKind(rs.getString("kind"));
 	            category.setTitle(rs.getString("title"));
-	            dto.setCategoryDTO(category);
+	            cash.setCategoryDTO(category);
 
-	            list.add(dto);
+	            list.add(cash);
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();

@@ -133,13 +133,13 @@ public class CategoryDAO {
 	}
 
 	// 수정
-	public void updateCategory(CategoryDTO dto) throws Exception {
+	public void updateCategory(CategoryDTO category) throws Exception {
 	    Connection conn = getConnection();
 	    String sql = "UPDATE category SET kind = ?, title = ? WHERE category_no = ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
-	    stmt.setString(1, dto.getKind());
-	    stmt.setString(2, dto.getTitle());
-	    stmt.setInt(3, dto.getCategoryNo());
+	    stmt.setString(1, category.getKind());
+	    stmt.setString(2, category.getTitle());
+	    stmt.setInt(3, category.getCategoryNo());
 	    stmt.executeUpdate();
 	    conn.close();
 	}
