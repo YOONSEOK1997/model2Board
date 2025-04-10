@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.util.*, model.*, dto.*" %>
-
+<%@ include file="/navbar.jsp"%>
 <%
     String y = request.getParameter("y");
     String m = request.getParameter("m");
@@ -22,11 +22,14 @@
 </head>
 <body class="p-5">
     <div class="container bg-white p-4 rounded shadow">
-        <h3><%= cashDate %> 수입/지출 내역 추가</h3>
+        <h3><%= cashDate %> 가계부 내역 추가</h3>
 
         <form action="insertCashAction.jsp" method="post">
             <input type="hidden" name="cashDate" value="<%= cashDate %>">
-
+			<div class="mb-3">
+			    <label for="color" class="form-label">색상</label>
+			    <input type="color" name="color" class="form-control"  required>
+			</div>
             <div class="mb-3">
                 <label for="kind" class="form-label">종류</label>
                 <select name="kind" class="form-select" required>

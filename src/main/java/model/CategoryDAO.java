@@ -37,7 +37,7 @@ public class CategoryDAO {
 		if (conn != null) conn.close();
 
 		return list;
-	} //카테고리 별 전체 리스트 출력
+	} //카테고리 별 전체 리스트 출력 (등록 form에서 카테고리 select할 때 )
 	public ArrayList<CategoryDTO> selectAllCategory() {
 	    ArrayList<CategoryDTO> list = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class CategoryDAO {
 
 	    try {
 	        conn = getConnection();
-	        String sql = "SELECT category_no, kind, title, color FROM category ORDER BY kind ASC, category_no ASC";
+	        String sql = "SELECT category_no, kind, title FROM category ORDER BY kind ASC, category_no ASC";
 	        stmt = conn.prepareStatement(sql);
 	        rs = stmt.executeQuery();
 
@@ -56,6 +56,7 @@ public class CategoryDAO {
 	            category.setCategoryNo(rs.getInt("category_no"));
 	            category.setKind(rs.getString("kind"));
 	            category.setTitle(rs.getString("title"));
+	          
 	            list.add(category);
 	        }
 	    } catch (Exception e) {
@@ -151,6 +152,7 @@ public class CategoryDAO {
 	    stmt.setInt(1, categoryNo);
 	    stmt.executeUpdate();
 	    conn.close();
+	    
 	}
 
 

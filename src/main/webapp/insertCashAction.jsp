@@ -8,15 +8,17 @@
     int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
     int amount = Integer.parseInt(request.getParameter("amount"));
     String memo = request.getParameter("memo");
-
-    CashDTO dto = new CashDTO();
-    dto.setCashDate(cashDate);
-    dto.setCategoryNo(categoryNo);
-    dto.setAmount(amount);
-    dto.setMemo(memo);
+    String color = request.getParameter("color");
+    
+    CashDTO Cashdto = new CashDTO();
+    Cashdto.setCashDate(cashDate);
+    Cashdto.setCategoryNo(categoryNo);
+    Cashdto.setAmount(amount);
+    Cashdto.setMemo(memo);
+    Cashdto.setColor(color);
 
     CashDAO dao = new CashDAO();
-    dao.insertCash(dto);
+    dao.insertCash(Cashdto);
 
     // 다시 해당 날짜로 리다이렉트
     String[] dateParts = cashDate.split("-");

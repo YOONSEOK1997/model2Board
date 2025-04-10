@@ -35,38 +35,33 @@
 <head>
 <meta charset="UTF-8">
 <title><%= targetYear %>년 <%= targetMonth + 1 %>월</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
 .calendar {
 	width: 100%;
 	text-align: center;
 }
-
 td {
 	height: 120px;
 	vertical-align: top;
+	transition: background-color 0.2s;
 }
-
+td:hover {
+	background-color: #f0f8ff;
+	cursor: pointer;
+}
+th.sunday {
+	color: red;
+}
+th.saturday {
+	color: blue;
+}
 .sunday {
 	color: red;
 }
-
 .saturday {
 	color: blue;
 }
-
-.income {
-	color: green;
-	font-size: 0.9em;
-}
-
-.expense {
-	color: red;
-	font-size: 0.9em;
-}
-
 .record {
 	font-size: 0.85em;
 	margin-bottom: 4px;
@@ -74,9 +69,7 @@ td {
 </style>
 </head>
 <body class="p-4">
-	<h1><%= targetYear %>년
-		<%= targetMonth + 1 %>월
-	</h1>
+	<h1><%= targetYear %>년 <%= targetMonth + 1 %>월</h1>
 
 	<table class="table table-bordered calendar">
 		<thead>
@@ -100,7 +93,13 @@ td {
                     out.println("<td></td>");
                 } else {
                     String key = String.format("%04d-%02d-%02d", targetYear, targetMonth + 1, day);
-                    out.println("<td><strong>" + day + "</strong><br/>");
+                    String tdClass = "";
+                    if (i % 7 == 0) tdClass = "sunday";
+                    else if (i % 7 == 6) tdClass = "saturday";
+
+                    String moveUrl = "dateList.jsp?y=" + targetYear + "&m=" + (targetMonth + 1) + "&d=" + day;
+                    out.println("<td class='" + tdClass + "' onclick=\"location.href='" + moveUrl + "'\">");
+                    out.println("<strong>" + day + "</strong><br/>");
 
                     if (map.containsKey(key)) {
                         for (CashDTO cash : map.get(key)) {
@@ -126,12 +125,16 @@ td {
         %>
 		</tbody>
 	</table>
-
+	
 	<div class="d-flex justify-content-between">
-		<a class="btn btn-outline-primary"
-			href="?y=<%= targetYear %>&m=<%= targetMonth %>">이전 달</a> <a
-			class="btn btn-outline-primary"
-			href="?y=<%= targetYear %>&m=<%= targetMonth + 2 %>">다음 달</a>
+		<a class="btn btn-outline-primary" href="?y=<%= targetYear %>&m=<%= targetMonth %>">이전 달</a>
+		<div>
+		
+		<a class="btn btn-outline-primary" href="category/categoryList.jsp">
+			<i class="fa-solid fa-list"></i> 카테고리 목록
+		</a>
+	</div>
+		<a class="btn btn-outline-primary" href="?y=<%= targetYear %>&m=<%= targetMonth + 2 %>">다음 달</a>
 	</div>
 </body>
 </html>

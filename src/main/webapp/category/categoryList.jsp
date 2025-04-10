@@ -48,7 +48,8 @@ body {
 <body>
 
 	<div class="container bg-white rounded shadow p-4">
-		<div class="title-bar mb-4">
+		<div class="title-
+		bar mb-4">
 			<h2 class="text-primary">
 				<i class="fa-solid fa-list-ul"></i> 카테고리 목록
 			</h2>

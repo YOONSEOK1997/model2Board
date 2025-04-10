@@ -94,7 +94,7 @@ public class CashDAO {
 
 	    try (
 	        Connection conn = getConnection();
-	        PreparedStatement stmt = conn.prepareStatement(sql)
+	        PreparedStatement stmt = conn.prepareStatement(sql);
 	    ) {
 	        stmt.setInt(1, dto.getCategoryNo());       
 	        stmt.setString(2, dto.getCashDate());
@@ -105,6 +105,48 @@ public class CashDAO {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	}
+	//달력 상세
+	public ArrayList<CashDTO> selectDateList(CashDTO inputDto) {
+	    ArrayList<CashDTO> list = new ArrayList<>();
+
+	    String sql = "SELECT c.cash_no, c.category_no, c.cash_date, c.amount, c.memo, c.color, "
+	               + "c.createdate, c.updatedate, "
+	               + "cat.kind, cat.title "
+	               + "FROM cash c INNER JOIN category cat ON c.category_no = cat.category_no "
+	               + "WHERE c.cash_date = ? "
+	               + "ORDER BY c.cash_no ASC";
+
+	    try (
+	        Connection conn = getConnection();
+	        PreparedStatement stmt = conn.prepareStatement(sql)
+	    ) {
+	        stmt.setString(1, inputDto.getCashDate());
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            CashDTO dto = new CashDTO();
+	            dto.setCashNo(rs.getInt("cash_no"));
+	            dto.setCategoryNo(rs.getInt("category_no"));
+	            dto.setCashDate(rs.getString("cash_date"));
+	            dto.setAmount(rs.getInt("amount"));
+	            dto.setMemo(rs.getString("memo"));
+	            dto.setColor(rs.getString("color"));
+	            dto.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
+	            dto.setUpdatedDate(rs.getTimestamp("updatedate").toLocalDateTime());
+
+	            CategoryDTO category = new CategoryDTO();
+	            category.setKind(rs.getString("kind"));
+	            category.setTitle(rs.getString("title"));
+	            dto.setCategoryDTO(category);
+
+	            list.add(dto);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
 	}
 
 }
