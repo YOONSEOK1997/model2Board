@@ -1,5 +1,7 @@
 package dto;
 
+import java.time.LocalDateTime;
+
 public class CashDTO {
     private int cashNo;
     private int categoryNo;
@@ -7,8 +9,8 @@ public class CashDTO {
     private int amount;
     private String memo;
     private String color; // 
-    private String createdDate;
-    private String updatedDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
 	public int getCashNo() {
 		return cashNo;
 	}
@@ -45,18 +47,18 @@ public class CashDTO {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getCreatedDate() {
+	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
-	public String getUpdatedDate() {
+	public LocalDateTime getUpdatedDate() {
 		return updatedDate;
 	}
-	public void setUpdatedDate(String updatedDate) {
+	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 
-    // Getters & Setters
+    
 }
