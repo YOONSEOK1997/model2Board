@@ -10,7 +10,7 @@ public class CategoryDAO {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "wkqk1234");
 	} 
-	// 카테고리 목록 출력
+	// 페이징
 	public ArrayList<CategoryDTO> selectCategoryList(Paging p) throws ClassNotFoundException, SQLException {
 		ArrayList<CategoryDTO> list = new ArrayList<>();
 		Connection conn = getConnection();	
@@ -37,7 +37,42 @@ public class CategoryDAO {
 		if (conn != null) conn.close();
 
 		return list;
+	} //카테고리 별 전체 리스트 출력
+	public ArrayList<CategoryDTO> selectAllCategory() {
+	    ArrayList<CategoryDTO> list = new ArrayList<>();
+
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        conn = getConnection();
+	        String sql = "SELECT category_no, kind, title, color FROM category ORDER BY kind ASC, category_no ASC";
+	        stmt = conn.prepareStatement(sql);
+	        rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            CategoryDTO category = new CategoryDTO();
+	            category.setCategoryNo(rs.getInt("category_no"));
+	            category.setKind(rs.getString("kind"));
+	            category.setTitle(rs.getString("title"));
+	            list.add(category);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return list;
 	}
+
 	//카테고리 등록 
 	public void insertCategory(CategoryDTO category) throws ClassNotFoundException, SQLException {
 	    Connection conn = null;
@@ -57,20 +92,20 @@ public class CategoryDAO {
 	}
 	// 특정 카테고리 1개 조회
 	public CategoryDTO selectCategoryByNo(int categoryNo) throws Exception {
-	    CategoryDTO dto = new CategoryDTO();
+	    CategoryDTO CategoryDto = new CategoryDTO();
 	    Connection conn = getConnection();
 	    String sql = "SELECT category_no, kind, title, createdate FROM category WHERE category_no = ?";
 	    PreparedStatement stmt = conn.prepareStatement(sql);
 	    stmt.setInt(1, categoryNo);
 	    ResultSet rs = stmt.executeQuery();
 	    if (rs.next()) {
-	        dto.setCategoryNo(rs.getInt("category_no"));
-	        dto.setKind(rs.getString("kind"));
-	        dto.setTitle(rs.getString("title"));
-	        dto.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
+	    	CategoryDto.setCategoryNo(rs.getInt("category_no"));
+	    	CategoryDto.setKind(rs.getString("kind"));
+	    	CategoryDto.setTitle(rs.getString("title"));
+	    	CategoryDto.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
 	    }
 	    conn.close();
-	    return dto;
+	    return CategoryDto;
 	}
 
 	// 수정

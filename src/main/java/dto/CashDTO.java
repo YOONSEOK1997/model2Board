@@ -3,14 +3,16 @@ package dto;
 import java.time.LocalDateTime;
 
 public class CashDTO {
-    private int cashNo;
-    private int categoryNo;
-    private String cashDate;
-    private int amount;
-    private String memo;
-    private String color; // 
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+	private int cashNo;
+	private int categoryNo;
+	private String cashDate;
+	private int amount;
+	private String memo;
+	private String color;
+	private LocalDateTime createdDate;
+	private LocalDateTime updatedDate;
+
+	private CategoryDTO categoryDTO; 
 	public int getCashNo() {
 		return cashNo;
 	}
@@ -59,6 +61,12 @@ public class CashDTO {
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+	public CategoryDTO getCategoryDTO() {
+		return categoryDTO;
+	}
+	public void setCategoryDTO(CategoryDTO categoryDTO) {
+		this.categoryDTO = categoryDTO;
+	}
 
-    
+
 }

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="dto.*, model.*, java.util.*" %>
+<%@ include file="/navbar.jsp" %>
 <%
     int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
     CategoryDAO categoryDao = new CategoryDAO();
