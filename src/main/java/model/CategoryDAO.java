@@ -76,20 +76,43 @@ public class CategoryDAO {
 	//카테고리 등록 
 	public void insertCategory(CategoryDTO category) throws ClassNotFoundException, SQLException {
 	    Connection conn = null;
-	    PreparedStatement stmt = null;
+	    PreparedStatement checkStmt = null;
+	    PreparedStatement insertStmt = null;
+	    ResultSet rs = null;
 
-	  
+	    try {
 	        conn = getConnection();
-	        String sql = "INSERT INTO category (kind, title, createdate) VALUES (?, ?, NOW())";
-	        stmt = conn.prepareStatement(sql);
-	        stmt.setString(1, category.getKind());
-	        stmt.setString(2, category.getTitle());
-	        stmt.executeUpdate();
-	 
-	        if (stmt != null) stmt.close();
+
+	        // 중복 체크: kind + title 조합이 이미 존재하는지 확인
+	        String checkSql = "SELECT COUNT(*) FROM category WHERE kind = ? AND title = ?";
+	        checkStmt = conn.prepareStatement(checkSql);
+	        checkStmt.setString(1, category.getKind());
+	        checkStmt.setString(2, category.getTitle());
+	        rs = checkStmt.executeQuery();
+
+	        boolean isDuplicate = false;
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            isDuplicate = true;
+	        }
+
+	        if (!isDuplicate) {
+	            String insertSql = "INSERT INTO category (kind, title, createdate) VALUES (?, ?, NOW())";
+	            insertStmt = conn.prepareStatement(insertSql);
+	            insertStmt.setString(1, category.getKind());
+	            insertStmt.setString(2, category.getTitle());
+	            insertStmt.executeUpdate();
+	        } else {
+	            System.out.println("이미 존재하는 카테고리입니다: kind=" + category.getKind() + ", title=" + category.getTitle());
+	        }
+
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (checkStmt != null) checkStmt.close();
+	        if (insertStmt != null) insertStmt.close();
 	        if (conn != null) conn.close();
-	 
+	    }
 	}
+
 	// 특정 카테고리 1개 조회
 	public CategoryDTO selectCategoryByNo(int categoryNo) throws Exception {
 	    CategoryDTO CategoryDto = new CategoryDTO();
