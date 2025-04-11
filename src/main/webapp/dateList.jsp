@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"%>
 <%@ page import="java.util.*, model.*, dto.*"%>
-
+<%@ include file="/navbar.jsp"%>
 <%
     // 파라미터 수집
     String y = request.getParameter("y");
@@ -8,7 +8,7 @@
     String d = request.getParameter("d");
 
     if (y == null || m == null || d == null) {
-        response.sendRedirect("calendar.jsp");
+        response.sendRedirect("monthlist.jsp");
         return;
     }
 
@@ -31,7 +31,7 @@
 <title><%= targetDate %> 내역</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="p-5">
+<body>
     <div class="container bg-white shadow rounded p-4">
         <h3><%= targetDate %> 수입/지출 내역</h3>
         <table class="table table-hover mt-4 text-center">

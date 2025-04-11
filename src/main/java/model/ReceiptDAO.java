@@ -14,6 +14,8 @@ public class ReceiptDAO {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "wkqk1234");
 	}
+	
+	//영수증 조회 
 	public ReceiptDTO selectReceiptByCashNo(int cashNo) throws ClassNotFoundException, SQLException {
 	    ReceiptDTO receipt = null;
 	    
@@ -28,7 +30,6 @@ public class ReceiptDAO {
 	        receipt.setCashNo(rs.getInt("cash_no"));
 	        receipt.setFilename(rs.getString("filename"));
 	        receipt.setCreateDate(rs.getTimestamp("createdate").toLocalDateTime());
-	    
 	    }
 
 	    rs.close();
@@ -37,7 +38,7 @@ public class ReceiptDAO {
 	    
 	    return receipt;
 	}
-
+	//영수증 등록
 	public void insertReceipt(ReceiptDTO receipt) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
@@ -57,6 +58,7 @@ public class ReceiptDAO {
 		conn.close();		
 	}
 	
+	//영수증 삭제 
 	public void deleteReceipt(int cashNo) throws ClassNotFoundException, SQLException {
 
 		Connection conn = null;
@@ -64,7 +66,6 @@ public class ReceiptDAO {
 		conn = getConnection();
 		
 		String sql = "delete from receipt where cash_no = ?";
-		
 	
 		stmt = conn.prepareStatement(sql); 
 		stmt.setInt(1, cashNo);

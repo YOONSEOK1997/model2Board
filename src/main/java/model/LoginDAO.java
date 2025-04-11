@@ -13,12 +13,11 @@ public class LoginDAO {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "wkqk1234");
 	}
-
+	//로그인
 	public boolean selectLogin(AdminDTO adminDto) throws SQLException, ClassNotFoundException {
 		boolean isLogin = false;
 
 		String sql = "SELECT admin_id FROM admin WHERE admin_id = ? AND admin_pw = ?";
-
 
 		Connection conn = getConnection();
 		PreparedStatement stmt = conn.prepareStatement(sql);
@@ -32,10 +31,9 @@ public class LoginDAO {
 
 		return isLogin;
 	}
+	//비밀번호 변경 
 	public void updatePassword(String adminId, String oldPw, String newPw) throws SQLException, ClassNotFoundException {
 	    String sql = "UPDATE admin SET admin_pw = ? WHERE admin_id = ? AND admin_pw = ?";
-
-	    
 	        Connection conn = getConnection();
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	     

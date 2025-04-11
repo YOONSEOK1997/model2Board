@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="model.*" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page import="model.*"%>
 <%
     int cashNo = Integer.parseInt(request.getParameter("cashNo"));
 	String y = request.getParameter("y");
