@@ -16,6 +16,9 @@
     <div class="container bg-white p-4 shadow rounded">
         <h3>내역 수정</h3>
         <form action="updateCashAction.jsp" method="post">
+       	<input type="hidden" name="y" value="<%= request.getParameter("y") %>">
+						<input type="hidden" name="m" value="<%= request.getParameter("m") %>">
+						<input type="hidden" name="d" value="<%= request.getParameter("d") %>">
             <input type="hidden" name="cashNo" value="<%= cash.getCashNo() %>">
             <div class="mb-3">
                 <label>날짜</label>

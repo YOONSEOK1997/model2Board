@@ -5,9 +5,13 @@
 	String y = request.getParameter("y");
 	String m = request.getParameter("m");
 	String d = request.getParameter("d");
-    CashDAO cashDao = new CashDAO();
+	
+    ReceiptDAO receiptDao = new ReceiptDAO();  //영수증 삭제 
+    receiptDao.deleteReceipt(cashNo); 
+    CashDAO cashDao = new CashDAO(); //CASH삭제
     cashDao.deleteCash(cashNo);
-
+    
+    
     response.sendRedirect("/cashbook/dateList.jsp?y=" + y + "&m=" + m + "&d=" + d);
 
 %>

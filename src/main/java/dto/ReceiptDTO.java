@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 public class ReceiptDTO {
     private int cashNo;
     private String filename;
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 	public int getCashNo() {
 		return cashNo;
 	}
@@ -17,11 +17,11 @@ public class ReceiptDTO {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
+	public LocalDateTime getCreateDate() {
+		return createDate;
 	}
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
 
 }

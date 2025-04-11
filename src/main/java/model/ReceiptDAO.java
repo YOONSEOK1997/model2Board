@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dto.ReceiptDTO;
@@ -13,7 +14,30 @@ public class ReceiptDAO {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/cashbook", "root", "wkqk1234");
 	}
-	
+	public ReceiptDTO selectReceiptByCashNo(int cashNo) throws ClassNotFoundException, SQLException {
+	    ReceiptDTO receipt = null;
+	    
+	    Connection conn = getConnection();
+	    String sql = "SELECT cash_no, filename, createdate FROM receipt WHERE cash_no = ?";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1, cashNo);
+	    
+	    ResultSet rs = stmt.executeQuery();
+	    if (rs.next()) {
+	        receipt = new ReceiptDTO();
+	        receipt.setCashNo(rs.getInt("cash_no"));
+	        receipt.setFilename(rs.getString("filename"));
+	        receipt.setCreateDate(rs.getTimestamp("createdate").toLocalDateTime());
+	    
+	    }
+
+	    rs.close();
+	    stmt.close();
+	    conn.close();
+	    
+	    return receipt;
+	}
+
 	public void insertReceipt(ReceiptDTO receipt) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
@@ -52,6 +76,7 @@ public class ReceiptDAO {
         }
 		conn.close();	
 	}
+	
 }
 
 

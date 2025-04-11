@@ -5,6 +5,9 @@
     String cashDate = request.getParameter("cashDate");
     int amount = Integer.parseInt(request.getParameter("amount"));
     String memo = request.getParameter("memo");
+	String y = request.getParameter("y");
+	String m = request.getParameter("m");
+	String d = request.getParameter("d");
 
     CashDTO cash = new CashDTO();
     cash.setCashNo(cashNo);
@@ -15,5 +18,5 @@
     CashDAO cashDao = new CashDAO();
     cashDao.updateCash(cash);
 
-    response.sendRedirect("cashOne.jsp?cashNo=" + cashNo);
+	response.sendRedirect("/cashbook/cash/cashOne.jsp?cashNo="+ cashNo + "&y=" + y + "&m=" + m + "&d=" + d);
 %>

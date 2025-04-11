@@ -62,7 +62,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">등록</button>
-            <a href="cashbook/dateList.jsp?y=<%= y %>&m=<%= m %>&d=<%= d %>" class="btn btn-secondary">취소</a>
+            <a href="/cashbook/dateList.jsp?y=<%= y %>&m=<%= m %>&d=<%= d %>" class="btn btn-secondary">취소</a>
         </form>
     </div>
 </body>
