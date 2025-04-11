@@ -1,7 +1,7 @@
 package dto;
 import java.time.LocalDateTime;
 
-public class ReceitDTO {
+public class ReceiptDTO {
     private int cashNo;
     private String filename;
     private LocalDateTime createdDate;

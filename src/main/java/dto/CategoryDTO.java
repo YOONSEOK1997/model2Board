@@ -5,7 +5,7 @@ public class CategoryDTO {
     private int categoryNo;
     private String kind;
     private String title;
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 	public int getCategoryNo() {
 		return categoryNo;
 	}
@@ -24,11 +24,11 @@ public class CategoryDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
+	public LocalDateTime getCreateDate() {
+		return createDate;
 	}
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
 
   

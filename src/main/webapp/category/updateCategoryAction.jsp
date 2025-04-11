@@ -1,6 +1,5 @@
 <%@ page import="model.*, dto.*" %>
 <%
-    request.setCharacterEncoding("UTF-8");
     int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
     String kind = request.getParameter("kind");
     String title = request.getParameter("title");

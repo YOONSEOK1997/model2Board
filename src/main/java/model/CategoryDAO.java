@@ -30,7 +30,7 @@ public class CategoryDAO {
 			categoryDto.setCategoryNo(rs.getInt("categoryNo"));
 			categoryDto.setKind(rs.getString("kind"));
 			categoryDto.setTitle(rs.getString("title"));
-			categoryDto.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
+			categoryDto.setCreateDate(rs.getTimestamp("createdate").toLocalDateTime());
 	        list.add(categoryDto); 
 		}
 		if (stmt != null) stmt.close();
@@ -126,7 +126,7 @@ public class CategoryDAO {
 	    	CategoryDto.setCategoryNo(rs.getInt("category_no"));
 	    	CategoryDto.setKind(rs.getString("kind"));
 	    	CategoryDto.setTitle(rs.getString("title"));
-	    	CategoryDto.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
+	    	CategoryDto.setCreateDate(rs.getTimestamp("createdate").toLocalDateTime());
 	    }
 	    conn.close();
 	    return CategoryDto;
@@ -145,15 +145,39 @@ public class CategoryDAO {
 	}
 
 	// 삭제
-	public void deleteCategory(int categoryNo) throws Exception {
+	public boolean deleteCategory(int categoryNo) throws Exception {
 	    Connection conn = getConnection();
-	    String sql = "DELETE FROM category WHERE category_no = ?";
-	    PreparedStatement stmt = conn.prepareStatement(sql);
-	    stmt.setInt(1, categoryNo);
-	    stmt.executeUpdate();
-	    conn.close();
-	    
+	    PreparedStatement checkStmt = null;
+	    PreparedStatement deleteStmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        // cash 테이블에 해당 categoryNo가 사용 중인지 확인
+	        String checkSql = "SELECT COUNT(*) FROM cash WHERE category_no = ?";
+	        checkStmt = conn.prepareStatement(checkSql);
+	        checkStmt.setInt(1, categoryNo);
+	        rs = checkStmt.executeQuery();
+	        
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            return false; // 사용 중이므로 삭제 불가
+	        }
+
+	        // 사용 중이 아니면 삭제
+	        String deleteSql = "DELETE FROM category WHERE category_no = ?";
+	        deleteStmt = conn.prepareStatement(deleteSql);
+	        deleteStmt.setInt(1, categoryNo);
+	        deleteStmt.executeUpdate();
+
+	        return true;
+
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (checkStmt != null) checkStmt.close();
+	        if (deleteStmt != null) deleteStmt.close();
+	        if (conn != null) conn.close();
+	    }
 	}
+
 
 
 }

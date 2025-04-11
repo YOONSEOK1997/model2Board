@@ -55,11 +55,12 @@
                     } else {
                         for (CashDTO c : cashList) {
                 %>
-				<tr>
-					<td><%= c.getCategoryDTO().getKind() %></td>
-					<td><%= c.getAmount() %>원</td>
-					<td><%= c.getMemo() %></td>
+				<tr onclick="location.href='cash/cashOne.jsp?cashNo=<%= c.getCashNo() %>&y=<%= y %>&m=<%= m %>&d=<%= d %>'" style="cursor: pointer;">
+				    <td><%= c.getCategoryDTO().getKind() %></td>
+				    <td><%= c.getAmount() %>원</td>
+				    <td><%= c.getMemo() %></td>
 				</tr>
+
 				<%
                         }
                     }
@@ -69,7 +70,7 @@
 		<a href="monthList.jsp?targetMonth=<%= Integer.parseInt(m) %>"
 			class="btn btn-outline-secondary">← 달력으로</a> 
 		<a class="btn btn-outline-primary" 
-   href="insertCashForm.jsp?y=<%= y %>&m=<%= m %>&d=<%= d %>">
+   href="cash/insertCashForm.jsp?y=<%= y %>&m=<%= m %>&d=<%= d %>">
    <i class="fa-solid fa-plus"></i> 등록
 </a>
 	</div>

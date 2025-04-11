@@ -58,7 +58,7 @@ public class CashDAO {
 	            cash.setMemo(rs.getString("memo"));
 	            cash.setCashDate(rs.getString("cash_date"));
 	            cash.setColor(rs.getString("color"));
-	            cash.setCreatedDate(rs.getTimestamp("cash_createdate").toLocalDateTime());
+	            cash.setCreateDate(rs.getTimestamp("cash_createdate").toLocalDateTime());
 
 	            CategoryDTO category = new CategoryDTO();
 	            category.setCategoryNo(rs.getInt("category_no"));
@@ -132,8 +132,8 @@ public class CashDAO {
 	            cash.setAmount(rs.getInt("amount"));
 	            cash.setMemo(rs.getString("memo"));
 	            cash.setColor(rs.getString("color"));
-	            cash.setCreatedDate(rs.getTimestamp("createdate").toLocalDateTime());
-	            cash.setUpdatedDate(rs.getTimestamp("updatedate").toLocalDateTime());
+	            cash.setCreateDate(rs.getTimestamp("createdate").toLocalDateTime());
+	            cash.setUpdateDate(rs.getTimestamp("updatedate").toLocalDateTime());
 
 	            CategoryDTO category = new CategoryDTO();
 	            category.setKind(rs.getString("kind"));
@@ -148,5 +148,62 @@ public class CashDAO {
 
 	    return list;
 	}
+	//cashOne select
+	public CashDTO selectOne(int cashNo) {
+	    CashDTO cash = null;
+	    String sql = "SELECT c.cash_no, c.cash_date, c.amount, c.memo, c.createdate, "
+	               + "cat.kind, cat.title "
+	               + "FROM cash c "
+	               + "INNER JOIN category cat ON c.category_no = cat.category_no "
+	               + "WHERE c.cash_no = ?";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        
+	        stmt.setInt(1, cashNo);
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            cash = new CashDTO();
+	            cash.setCashNo(rs.getInt("cash_no"));
+	            cash.setCashDate(rs.getString("cash_date"));
+	            cash.setAmount(rs.getInt("amount"));
+	            cash.setMemo(rs.getString("memo"));
+	            cash.setCreateDate(rs.getTimestamp("createdate").toLocalDateTime());
+	            
+	            CategoryDTO cat = new CategoryDTO();
+	            cat.setKind(rs.getString("kind"));
+	            cat.setTitle(rs.getString("title"));
+	            cash.setCategoryDTO(cat);
+	        }
+	        
+	        rs.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return cash;
+	}
+	//cashOne update
+	public void updateCash(CashDTO cash) throws SQLException, ClassNotFoundException {
+	    String sql = "UPDATE cash SET cash_date=?, amount=?, memo=? WHERE cash_no=?";
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, cash.getCashDate());
+	        stmt.setInt(2, cash.getAmount());
+	        stmt.setString(3, cash.getMemo());
+	        stmt.setInt(4, cash.getCashNo());
+	        stmt.executeUpdate();
+	    }
+	}
+	//cashOne delete
+	public void deleteCash(int cashNo) throws SQLException, ClassNotFoundException {
+	    String sql = "DELETE FROM cash WHERE cash_no=?";
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, cashNo);
+	        stmt.executeUpdate();
+	    }
+	}
+
 
 }

@@ -86,7 +86,7 @@ body {
 						class="btn btn-sm btn-secondary">수정</a> <a
 						href="deleteCategoryAction.jsp?categoryNo=<%= c.getCategoryNo() %>"
 						class="btn btn-sm btn-danger"
-						onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a></td>
+						onclick="return confirm('삭제하시겠습니까?');">삭제</a></td>
 
 				</tr>
 				<%

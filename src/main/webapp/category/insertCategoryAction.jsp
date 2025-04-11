@@ -2,8 +2,6 @@
 <%@ page import="java.sql.*, model.*, dto.*" %>
 
 <%
-request.setCharacterEncoding("UTF-8");
-
 String kind = request.getParameter("kind");
 String title = request.getParameter("title");
 

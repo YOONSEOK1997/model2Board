@@ -9,8 +9,8 @@ public class CashDTO {
 	private int amount;
 	private String memo;
 	private String color;
-	private LocalDateTime createdDate;
-	private LocalDateTime updatedDate;
+	private LocalDateTime createDate;
+	private LocalDateTime updateDate;
 
 	private CategoryDTO categoryDTO; 
 	public int getCashNo() {
@@ -49,17 +49,17 @@ public class CashDTO {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
+	public LocalDateTime getCreateDate() {
+		return createDate;
 	}
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
-	public LocalDateTime getUpdatedDate() {
-		return updatedDate;
+	public LocalDateTime getUpdateDate() {
+		return updateDate;
 	}
-	public void setUpdatedDate(LocalDateTime updatedDate) {
-		this.updatedDate = updatedDate;
+	public void setUpdateDate(LocalDateTime updateDate) {
+		this.updateDate = updateDate;
 	}
 	public CategoryDTO getCategoryDTO() {
 		return categoryDTO;
