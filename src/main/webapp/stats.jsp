@@ -39,7 +39,7 @@
 				<%
                     for (Map<String, Object> row : totalStats) {
                         String kind = (String) row.get("kind");
-                        long count = row.get("count") != null ? ((Number) row.get("count")).longValue() : 0; // 수정: "COUNT(*)" → "count"
+                        long count = row.get("count") != null ? ((Number) row.get("count")).longValue() : 0; 
                         long sum = row.get("sum") != null ? ((Number) row.get("sum")).longValue() : 0;
 
                 %>
@@ -113,7 +113,7 @@
 			<tbody>
 				<%
                     for (Map<String, Object> row : yearlyStats) {
-                        int year = row.get("year") != null ? ((Number) row.get("year")).intValue() : 0; // 
+                        int year = row.get("year") != null ? ((Number) row.get("year")).intValue() : 0; 
                         String kind = (String) row.get("kind");
                         long count = row.get("count") != null ? ((Number) row.get("count")).longValue() : 0; 
                         long sum = row.get("sum") != null ? ((Number) row.get("sum")).longValue() : 0; 

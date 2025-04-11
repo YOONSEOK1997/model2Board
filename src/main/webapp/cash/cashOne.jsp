@@ -47,6 +47,13 @@
        onclick="return confirm('삭제하시겠습니까?');">삭제</a>
 <a href="insertReceiptForm.jsp?cashNo=<%= cash.getCashNo() %>&y=<%= y %>&m=<%= m %>&d=<%= d %>" class="btn btn-outline-danger"
      >영수증 등록</a>
+     <% if (filename != null) { %>
+    <a href="deleteReceiptAction.jsp?cashNo=<%= cash.getCashNo() %>&y=<%= y %>&m=<%= m %>&d=<%= d %>" 
+       class="btn btn-outline-warning" 
+       onclick="return confirm('영수증을 삭제하시겠습니까?');">
+        영수증 삭제
+    </a>
+<% } %>
      <div>
    </div>
     </div>
@@ -56,6 +63,7 @@
 <% } else { %>
     <p class="text-muted">등록된 영수증이 없습니다.</p>
 <% } %>
+
 </div>
     
  
