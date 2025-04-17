@@ -52,7 +52,7 @@ public class ModifyBoardController extends HttpServlet {
 			// 비밀번호 맞으면 수정
 			int row = boardDao.updateBoard(board);
 			if (row == 1) {
-				response.sendRedirect(request.getContextPath() + "/boardList");
+				response.sendRedirect(request.getContextPath() + "/boardOne?boardNo=" + boardNo);
 			} else {
 				response.sendRedirect(request.getContextPath() + "/modifyBoard?boardNo=" + boardNo + "&error=2");
 			}

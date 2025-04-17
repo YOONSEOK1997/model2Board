@@ -8,9 +8,8 @@ import java.util.ArrayList;
 
 import dto.BoardDto;
 
-public class BoardDao { // Data Access Object
-    // 글수정 메서드
-    // 메서드 마다 드라이브 로딩과 Connection을 구하는 코드가 중복되어 하나의 메서드로 추출하였다
+public class BoardDao { 
+ 
 public class DBUtil {
     public static Connection getConnection() throws Exception {
     	
@@ -23,7 +22,7 @@ public class DBUtil {
     }
 }
 
-//글번호와 비밀번호로 일치 여부 확인
+//비밀번호 체크
 public boolean checkBoardPw(int boardNo, String boardPw) {
  Connection connection = null;
  PreparedStatement statement = null;
@@ -37,7 +36,7 @@ public boolean checkBoardPw(int boardNo, String boardPw) {
      statement.setString(2, boardPw);
      rs = statement.executeQuery();
      if (rs.next()) {
-         result = true; // 일치하면 true
+         result = true;
      }
  } catch (Exception e) {
      e.printStackTrace();
@@ -50,7 +49,7 @@ public boolean checkBoardPw(int boardNo, String boardPw) {
  return result;
 }
 
-
+	//게시물 수정 
 	public int updateBoard(BoardDto board) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -75,7 +74,7 @@ public boolean checkBoardPw(int boardNo, String boardPw) {
     }
     
     
-    // 글번호와 글패스워드를 입력받아 한개의 게시글 삭제
+   //게시물 삭제 
     public int deleteBoard(int boardNo, String boardPw) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -97,7 +96,7 @@ public boolean checkBoardPw(int boardNo, String boardPw) {
         return row;
     }
     
-    // 한개의 게시글 내용보기
+    // 한개의 게시글 내용보기(수정화면 or 상세)
     public BoardDto selectBoardOne(int boardNo) {
         BoardDto board = null;
         Connection connection = null;
@@ -160,7 +159,7 @@ public boolean checkBoardPw(int boardNo, String boardPw) {
         }
         return list;
     }
- // 전체 글 카운트
+    // 전체 글 개수 
     public int selectBoardCount() {
         int count = 0; 
         Connection connection = null;
@@ -185,7 +184,7 @@ public boolean checkBoardPw(int boardNo, String boardPw) {
         return count;
     }
     
-    // 글쓰기 메서드
+    //등록
     public int insertBoard(BoardDto board) {
         Connection connection = null;
         PreparedStatement statement = null;
