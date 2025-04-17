@@ -1,5 +1,5 @@
+<%@page import="dto.BoardDto"%>
 <%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page import="dto.BoardDto" %>
 <%
     BoardDto board = (BoardDto)request.getAttribute("board");
 %>

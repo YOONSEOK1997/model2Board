@@ -4,10 +4,7 @@ public class BoardDto {
     private int boardNo;
     private String boardPw;
     private String boardTitle;
-    private String boardContent;
-    private String boardUser;
-    private String boardDate;
-	public int getBoardNo() {
+    public int getBoardNo() {
 		return boardNo;
 	}
 	public void setBoardNo(int boardNo) {
@@ -43,4 +40,7 @@ public class BoardDto {
 	public void setBoardDate(String boardDate) {
 		this.boardDate = boardDate;
 	}
+	private String boardContent;
+    private String boardUser;
+    private String boardDate;
 }
